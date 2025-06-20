@@ -39,6 +39,11 @@ jobs:
       run: |
         choco install -y cmake sqlite wxwidgets
 
+    - name: List wxWidgets directories (debug)
+      run: |
+          dir C:\wxWidgets-3.1.2\include
+          dir C:\wxWidgets-3.1.2\lib\vc_x64_lib
+
     - name: Configure with CMake
     
       run: |
