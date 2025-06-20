@@ -45,7 +45,8 @@ jobs:
           7z x wxWidgets.zip -owxWidgets
 
     - name: Build wxWidgets (Release x64)
-      working-directory: wxWidgets-3.2.4/build/msw
+      shell: cmd
+      working-directory: wxWidgets-3.2.4\build\msw
       run: |
           nmake -f makefile.vc BUILD=release SHARED=0 UNICODE=1 TARGET_CPU=amd64
 
