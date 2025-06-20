@@ -40,7 +40,10 @@ jobs:
         choco install -y cmake sqlite wxwidgets
 
     - name: Configure with CMake
-      run: cmake -S . -B build
+      run: |
+      # Set WXWIN to the Chocolatey wxWidgets install location
+      WXWIN="/c/tools/wxwidgets"
+      cmake -S . -B build -DwxWidgets_ROOT_DIR="$WXWIN" -DwxWidgets_LIB_DIR="$WXWIN/lib/vc_x64_lib" -DwxWidgets_CONFIGURATION=mswu
 
     - name: Build
       run: cmake --build build --config Release
