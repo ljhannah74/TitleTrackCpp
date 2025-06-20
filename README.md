@@ -45,3 +45,37 @@ cmake ..
 make
 
 ./TitleTrackCpp
+💡 You may need to set CMAKE_PREFIX_PATH or wxWidgets_ROOT_DIR depending on your system setup.
+
+📌 Roadmap
+See the Issues tab for current tasks. Key milestones:
+
+ Display saved abstracts in main window
+
+ Modal dialog to create new abstract
+
+ Edit and delete functionality
+
+ Attach documents to abstracts
+
+ Generate printable abstract reports
+
+ User preferences and session persistence
+
+🤝 Contributing
+This is currently a solo project, but contributions or feedback are welcome. To get involved:
+
+Fork the repo
+
+Create a feature branch (git checkout -b feature-name)
+
+Commit your changes
+
+Open a pull request
+
+📄 License
+This project is licensed under the MIT License. See LICENSE file for details.
+
+🙋‍♂️ Author
+Lewis Hannah
+GitHub Profile
