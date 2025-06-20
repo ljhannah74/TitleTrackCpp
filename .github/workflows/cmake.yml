@@ -42,7 +42,7 @@ jobs:
     - name: List wxWidgets directories (debug)
       run: |
           dir C:\wxWidgets-3.1.2\include
-          dir C:\wxWidgets-3.1.2\lib\vc_x64_lib
+          dir C:\wxWidgets-3.1.2\lib
 
     - name: Configure with CMake
     
