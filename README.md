@@ -1,6 +1,5 @@
 # 🧾 TitleTrackCpp
 
-```markdown
 ![Platform](https://img.shields.io/badge/platform-linux%20%7C%20windows-lightgrey)
 ![License](https://img.shields.io/github/license/ljhannah74/TitleTrackCpp)
 ![Build](https://img.shields.io/github/actions/workflow/status/ljhannah74/TitleTrackCpp/cmake.yml?label=build)
