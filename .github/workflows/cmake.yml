@@ -47,7 +47,7 @@ jobs:
     - name: Show workspace directories
       run: |
         dir
-        dir wxWidgets-3.2.4
+        dir wxWidgets
         dir wxWidgets-3.2.4\build
 
     - name: Build wxWidgets (Release x64)
