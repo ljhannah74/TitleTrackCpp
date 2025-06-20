@@ -18,7 +18,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y cmake build-essential libsqlite3-dev libwxgtk3.0-gtk3-dev
+        sudo apt install -y cmake build-essential libsqlite3-dev libwxgtk3.2-dev
 
     - name: Configure with CMake
       run: cmake -S . -B build
