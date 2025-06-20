@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Find wxWidgets (optional, remove if not needed)
 find_package(wxWidgets REQUIRED COMPONENTS core base)
+message(STATUS "wxWidgets_INCLUDE_DIRS: ${wxWidgets_INCLUDE_DIRS}")
+message(STATUS "wxWidgets_LIBRARIES: ${wxWidgets_LIBRARIES}")
 include(${wxWidgets_USE_FILE})
 
 # Add your source files here
