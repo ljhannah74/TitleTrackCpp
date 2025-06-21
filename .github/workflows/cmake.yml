@@ -54,7 +54,7 @@ jobs:
     - name: List built wxWidgets libraries (debug)
       run: |
         dir wxWidgets
-        dir wxWidgets\build
+        dir wxWidgets\build\mwc
 
     - name: Configure your project with CMake
       run: |
