@@ -1,7 +1,6 @@
 name: Build TitleTrackCpp
 
 on:
- 
   push:
     branches:
       - master
