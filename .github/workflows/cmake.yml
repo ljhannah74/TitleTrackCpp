@@ -3,9 +3,7 @@ name: Build TitleTrackCpp
 on:
   push:
     branches:
-      - master
-  pull_request:
-    types: [opened, synchronize]
+      - develop
 
 jobs:
   continuous-integration:
