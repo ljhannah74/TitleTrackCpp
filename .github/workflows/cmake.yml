@@ -44,12 +44,6 @@ jobs:
           curl -L -o wxWidgets.zip https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4.zip
           7z x wxWidgets.zip -owxWidgets
 
-    - name: Show workspace directories
-      run: |
-        dir
-        dir wxWidgets
-        dir wxWidgets\build
-
     - name: Build wxWidgets (Release x64)
       shell: cmd
       working-directory: wxWidgets\build\msw
@@ -60,6 +54,7 @@ jobs:
     - name: List built wxWidgets libraries (debug)
       run: |
         dir wxWidgets
+        dir wxWidgets\build
 
     - name: Configure your project with CMake
       run: |
