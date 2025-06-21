@@ -7,61 +7,43 @@ on:
     branches: [ develop ]
 
 jobs:
-  build-linux:
-    name: Build on Ubuntu
-    runs-on: ubuntu-latest
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y cmake build-essential libsqlite3-dev libwxgtk3.2-dev
+      - name: Install dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libwxgtk3.0-gtk3-dev libsqlite3-dev cmake
 
-    - name: Configure with CMake
-      run: cmake -S . -B build
+      - name: Install dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install wxwidgets sqlite cmake
 
-    - name: Build
-      run: cmake --build build --config Release
+      - name: Install dependencies (Windows)
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          choco install sqlite
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+          choco install wxwidgets
 
-  build-windows:
-    name: Build on Windows
-    runs-on: windows-latest
+      - name: Configure project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Install dependencies
-      shell: bash
-      run: |
-        choco install -y cmake sqlite ninja
-
-    - name: Download wxWidgets
-      run: |
-          curl -L -o wxWidgets.zip https://github.com/wxWidgets/wxWidgets/releases/download/v3.2.4/wxWidgets-3.2.4.zip
-          7z x wxWidgets.zip -owxWidgets
-
-    - name: Build wxWidgets (Release x64)
-      shell: cmd
-      working-directory: wxWidgets\build\msw
-      run: |
-          call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat"
-          nmake -f makefile.vc BUILD=release SHARED=0 UNICODE=1 TARGET_CPU=amd64
-
-    - name: List built wxWidgets libraries (debug)
-      run: |
-        dir
-
-    - name: Configure your project with CMake
-      run: |
-          cmake -S . -B build -G "Visual Studio 17 2022" -A x64 `
-            -DwxWidgets_ROOT_DIR="${{ github.workspace }}/wxWidgets/wxWidgets-3.2.4" `
-            -DwxWidgets_LIB_DIR="${{ github.workspace }}/wxWidgets/wxWidgets-3.2.4/lib/vc_x64_lib" `
-            -DwxWidgets_CONFIGURATION=mswu `
-            -DCMAKE_BUILD_TYPE=Release
-            
-    - name: Build
-      run: cmake --build build --config Release
+      - name: Build project
+        run: |
+          cd build
+          cmake --build .
