@@ -120,6 +120,10 @@ CPMFindPackage(
     EXCLUDE_FROM_ALL YES
 )
 
-add_executable(demo WIN32 main.cpp)
+add_executable(demo WIN32 
+	App.cpp
+	MyFrameDerived.cpp
+	gui/MyFrame.cpp
+)
 # target_link_libraries(demo PRIVATE wx-widgets-test-compiler-options)
 target_link_libraries(demo PRIVATE wx::net wx::core wx::base)
