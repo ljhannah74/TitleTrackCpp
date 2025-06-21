@@ -59,7 +59,7 @@ jobs:
 
     - name: List built wxWidgets libraries (debug)
       run: |
-        dir wxWidgets-3.2.4\lib\vc_x64_lib
+        dir wxWidgets\wxWidgets-3.2.4
 
     - name: Configure your project with CMake
       run: |
