@@ -48,11 +48,11 @@ jobs:
       run: |
         dir
         dir wxWidgets
-        dir wxWidgets-3.2.4\build
+        dir wxWidgets\build
 
     - name: Build wxWidgets (Release x64)
       shell: cmd
-      working-directory: wxWidgets-3.2.4\build\msw
+      working-directory: wxWidgets\build\msw
       run: |
           nmake -f makefile.vc BUILD=release SHARED=0 UNICODE=1 TARGET_CPU=amd64
 
