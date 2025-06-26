@@ -1,0 +1,41 @@
+# Build directory
+/build/
+/CMakeFiles/
+/CMakeCache.txt
+/Makefile
+/install_manifest.txt
+/*.cmake
+/*.o
+/*.obj
+/*.a
+/*.lib
+/*.so
+/*.dll
+/*.dylib
+/*.exe
+/*.out
+
+# wxWidgets Visual Studio files (if used)
+*.user
+*.vcxproj*
+*.sln
+
+# wxFormBuilder generated files (if any)
+*.fbp.bak
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Backup/swap files
+*~
+*.swp
+*.bak
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
