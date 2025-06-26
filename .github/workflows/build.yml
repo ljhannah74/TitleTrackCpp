@@ -2,9 +2,9 @@ name: Build wxWidgets App
 
 on:
   push:
-    branches: [main]
+    branches: [develop]
   pull_request:
-    branches: [main]
+    branches: [develop]
 
 jobs:
   build-linux:
@@ -38,20 +38,23 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Install MSYS2 and wxWidgets
-      uses: msys2/setup-msys2@v2
-      with:
-        install: >-
-          base-devel
-          mingw-w64-x86_64-gcc
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-wxWidgets
-        msystem: MINGW64
-    - name: Build
-      shell: msys2 {0}
-      run: |
-        mkdir -p build
-        cd build
-        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
-        make
+      - uses: actions/checkout@v3
+
+      - name: Set up MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          update: true
+          msystem: MINGW64
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-make
+            mingw-w64-x86_64-wxWidgets-gtk3
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          mkdir build
+          cd build
+          cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+          make
