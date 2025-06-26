@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(MyApp)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_WIN32_EXECUTABLE TRUE)
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 include(${wxWidgets_USE_FILE})
 
