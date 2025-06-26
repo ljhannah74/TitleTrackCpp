@@ -33,10 +33,12 @@ jobs:
           brew install wxwidgets cmake
 
       - name: Build project
+        env:
+            WX_CONFIG: /opt/homebrew/bin/wx-config
         run: |
           mkdir build
           cd build
-          cmake -DwxWidgets_CONFIG_EXECUTABLE=/usr/local/bin/wx-config ..
+          cmake .. -DwxWidgets_CONFIG_EXECUTABLE=$WX_CONFIG
           make
 
   build-windows:
