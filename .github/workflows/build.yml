@@ -1,0 +1,57 @@
+name: Build wxWidgets App
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: sudo apt update && sudo apt install -y libwxgtk3.2-dev build-essential cmake
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install wxWidgets
+      run: |
+        brew update
+        brew install wxwidgets cmake
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -DwxWidgets_CONFIG_EXECUTABLE=/usr/local/bin/wx-config ..
+        make
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install MSYS2 and wxWidgets
+      uses: msys2/setup-msys2@v2
+      with:
+        install: >-
+          base-devel
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-wxWidgets
+        msystem: MINGW64
+    - name: Build
+      shell: msys2 {0}
+      run: |
+        mkdir -p build
+        cd build
+        cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
+        make
