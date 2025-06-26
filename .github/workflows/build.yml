@@ -38,23 +38,17 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Set up MSYS2
-        uses: msys2/setup-msys2@v2
-        with:
-          update: true
-          msystem: MINGW64
-          install: >-
-            mingw-w64-x86_64-gcc
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-make
-            mingw-w64-x86_64-wxWidgets-gtk3
+    - name: Install vcpkg and wxWidgets
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git
+        .\vcpkg\bootstrap-vcpkg.bat
+        .\vcpkg\vcpkg install wxwidgets:x64-windows
 
-      - name: Build
-        shell: msys2 {0}
-        run: |
-          mkdir build
-          cd build
-          cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-          make
+    - name: Configure and build
+      run: |
+        mkdir build
+        cd build
+        cmake .. -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake -A x64
+        cmake --build . --config Release
