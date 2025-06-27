@@ -32,3 +32,6 @@ add_executable(
 )
 target_include_directories(DALTests PRIVATE include)
 target_link_libraries(DALTests SQLite::SQLite3)
+set_target_properties(DALTests PROPERTIES
+    WIN32_EXECUTABLE FALSE
+)
