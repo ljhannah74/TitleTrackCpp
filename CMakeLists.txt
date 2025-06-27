@@ -23,3 +23,12 @@ find_package(SQLite3 REQUIRED)
 add_executable(TitleTrack ${SRC_FILES})
 target_include_directories(TitleTrack PRIVATE include gui src)
 target_link_libraries(TitleTrack ${wxWidgets_LIBRARIES} SQLite::SQLite3)
+
+add_executable(
+    DALTests
+    src/TitleAbstractDAL.cpp
+    src/SQLiteHelper.cpp
+    tests/test_TitleAbstractDAL.cpp
+)
+target_include_directories(DALTests PRIVATE include)
+target_link_libraries(DALTests SQLite::SQLite3)

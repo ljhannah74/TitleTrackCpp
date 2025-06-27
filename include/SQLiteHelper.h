@@ -23,6 +23,8 @@ public:
     // Get last error message
     std::string getLastError() const;
 
+    sqlite3* getHandle() const { return db; }
+
 private:
     sqlite3* db = nullptr;
     std::string lastError;
