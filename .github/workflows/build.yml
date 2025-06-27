@@ -46,12 +46,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install vcpkg and wxWidgets
+      - name: Install vcpkg and dependencies
         shell: powershell
         run: |
           git clone https://github.com/microsoft/vcpkg.git
           .\vcpkg\bootstrap-vcpkg.bat
-          .\vcpkg\vcpkg install wxwidgets:x64-windows
+          .\vcpkg\vcpkg install wxwidgets:x64-windows sqlite3:x64-windows
 
       - name: Configure project with CMake
         shell: powershell
