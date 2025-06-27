@@ -1,7 +1,9 @@
 #pragma once
 #include <wx/wx.h>
+#include "MainFrameBase.h"
 
-class MainFrame : public wxFrame {
+class MainFrame : public MainFrameBase {
 public:
-    MainFrame(const wxString& title);
+    MainFrame(wxWindow* parent);
+    void OnNewAbstractButtonClick(wxCommandEvent& event);
 };

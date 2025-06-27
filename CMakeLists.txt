@@ -6,22 +6,25 @@ set(CMAKE_WIN32_EXECUTABLE TRUE)
 find_package(wxWidgets REQUIRED COMPONENTS core base)
 include(${wxWidgets_USE_FILE})
 
-# Find all .cpp and .h files in src/ and include/ (or root)
-file(GLOB SRC_FILES
-    "${CMAKE_SOURCE_DIR}/*.cpp"
-    "${CMAKE_SOURCE_DIR}/*.h"
-    "${CMAKE_SOURCE_DIR}/src/*.cpp"
-    "${CMAKE_SOURCE_DIR}/src/*.h"
-    "${CMAKE_SOURCE_DIR}/gui/*.cpp"
-    "${CMAKE_SOURCE_DIR}/gui/*.h"
-    "${CMAKE_SOURCE_DIR}/include/*.h"
+file(GLOB_RECURSE GUI_FILES CONFIGURE_DEPENDS
+    gui/*.cpp
+    gui/*.h
+    generated/*.cpp
+    generated/*.h
 )
 
 # Find SQLite3 (CMake will locate system or vcpkg version)
 find_package(SQLite3 REQUIRED)
 
-add_executable(TitleTrack ${SRC_FILES})
-target_include_directories(TitleTrack PRIVATE include gui src)
+add_executable(
+    TitleTrack
+    src/main.cpp
+    src/SQLiteHelper
+    src/TitleAbstractDAL.cpp
+    ${GUI_FILES}
+    )
+
+target_include_directories(TitleTrack PRIVATE include gui src generated)
 target_link_libraries(TitleTrack ${wxWidgets_LIBRARIES} SQLite::SQLite3)
 
 add_executable(
@@ -30,6 +33,7 @@ add_executable(
     src/SQLiteHelper.cpp
     tests/test_TitleAbstractDAL.cpp
 )
+
 target_include_directories(DALTests PRIVATE include)
 target_link_libraries(DALTests SQLite::SQLite3)
 set_target_properties(DALTests PROPERTIES

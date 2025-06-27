@@ -4,7 +4,7 @@
 class TitleTrackApp : public wxApp {
 public:
     virtual bool OnInit() override {
-        MainFrame* frame = new MainFrame("TitleTrack - Abstract Tracking System");
+        MainFrame* frame = new MainFrame(nullptr);
         frame->Show(true);
         return true;
     }
