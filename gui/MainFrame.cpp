@@ -1,4 +1,7 @@
 #include "MainFrame.h"
+#include <TitleAbstractDAL.h>
+#include <wx/stdpaths.h>
+#include <filesystem>
 
 MainFrame::MainFrame(wxWindow* parent)
     : MainFrameBase(parent, wxID_ANY, "TitleTrack - Abstract Management System", wxDefaultPosition, wxSize(800, 600), wxDEFAULT_FRAME_STYLE) 
@@ -19,13 +22,34 @@ MainFrame::MainFrame(wxWindow* parent)
     m_listAbstracts->SetColumnWidth(3, 120);
     m_listAbstracts->SetColumnWidth(4, 250);
 
-    long index = m_listAbstracts->InsertItem(0, "ORD-00123");
-    m_listAbstracts->SetItem(index, 1, "Acme Corp");
-    m_listAbstracts->SetItem(index, 2, "2025-06-27");
-    m_listAbstracts->SetItem(index, 3, "Full Search");
-    m_listAbstracts->SetItem(index, 4, "123 Main St, Springfield");
+    loadAbstracts();  // Load abstracts on startup
 }
 
 void MainFrame::OnNewAbstractButtonClick(wxCommandEvent& event) {
     wxMessageBox("NEw Abstract Button clicked!", "Info");
+}
+
+void MainFrame::loadAbstracts() {
+    m_listAbstracts->DeleteAllItems();  // Clear existing
+
+    std::string dbPath = wxStandardPaths::Get().GetUserLocalDataDir().ToStdString() + "/TitleTrack.db";  // Update with actual path
+    std::filesystem::create_directories(std::filesystem::path(wxStandardPaths::Get().GetUserLocalDataDir().ToStdString()));  // Ensure directory exists
+    TitleAbstractDAL dal;
+    if(!dal.connect(dbPath)) {  // Update with actual path
+        wxMessageBox("Failed to open the database file:\n" + dbPath, "Database Error", wxICON_ERROR);
+        return;
+    }
+    
+    dal.createTable();  // Ensure table exists
+
+    std::vector<TitleAbstract> abstracts = dal.getAllAbstracts();  // Assumes DAL method
+
+    for (size_t i = 0; i < abstracts.size(); ++i) {
+        const auto& a = abstracts[i];
+        long index = m_listAbstracts->InsertItem(i, a.OrderNo);
+        m_listAbstracts->SetItem(index, 1, a.Client);
+        m_listAbstracts->SetItem(index, 2, a.EffectiveDate);
+        m_listAbstracts->SetItem(index, 3, a.ProductType);
+        m_listAbstracts->SetItem(index, 4, a.PropertyAddress);
+    }
 }

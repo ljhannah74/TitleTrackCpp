@@ -6,4 +6,5 @@ class MainFrame : public MainFrameBase {
 public:
     MainFrame(wxWindow* parent);
     void OnNewAbstractButtonClick(wxCommandEvent& event);
+    void loadAbstracts();
 };

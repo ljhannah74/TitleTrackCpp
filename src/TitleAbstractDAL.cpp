@@ -7,6 +7,11 @@ TitleAbstractDAL::~TitleAbstractDAL() {
     db.close();
 }
 
+std::string TitleAbstractDAL::getSafeText(sqlite3_stmt* stmt, int col) {
+    const unsigned char* text = sqlite3_column_text(stmt, col);
+    return text ? reinterpret_cast<const char*>(text) : "";
+}
+
 bool TitleAbstractDAL::connect(const std::string& dbPath) {
     return db.open(dbPath);
 }
@@ -68,15 +73,15 @@ std::vector<TitleAbstract> TitleAbstractDAL::getAllAbstracts() {
 
     while (sqlite3_step(stmt) == SQLITE_ROW) {
         TitleAbstract a;
-        a.TitleAbstractID   = sqlite3_column_int(stmt, 0);
-        a.OrderNo           = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        a.OrderDate         = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
-        a.SearchDate        = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
-        a.EffectiveDate     = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4));
-        a.PropertyAddress   = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5));
-        a.ProductType       = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6));
-        a.Client            = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7));
-        a.ClientRefNo       = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 8));
+         a.TitleAbstractID   = sqlite3_column_int(stmt, 0);
+        a.OrderNo           = getSafeText(stmt, 1);
+        a.OrderDate         = getSafeText(stmt, 2);
+        a.SearchDate        = getSafeText(stmt, 3);
+        a.EffectiveDate     = getSafeText(stmt, 4);
+        a.PropertyAddress   = getSafeText(stmt, 5);
+        a.ProductType       = getSafeText(stmt, 6);
+        a.Client            = getSafeText(stmt, 7);
+        a.ClientRefNo       = getSafeText(stmt, 8);
         result.push_back(a);
     }
 

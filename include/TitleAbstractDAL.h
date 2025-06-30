@@ -13,7 +13,7 @@ public:
 
     bool connect(const std::string& dbPath);
     bool createTable();
-
+    std::string getSafeText(sqlite3_stmt*, int);
     std::optional<int> addAbstract(const TitleAbstract& record);
     std::vector<TitleAbstract> getAllAbstracts();
     std::optional<TitleAbstract> getAbstractById(int id);
