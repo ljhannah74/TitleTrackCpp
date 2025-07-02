@@ -12,9 +12,9 @@
 - View a list of saved abstract reports
 - Create new abstracts via a modal form
 - Store abstract data in a local SQLite database
-- [Planned] Edit and delete existing records
-- [Planned] Attach supporting documents and images
-- [Planned] Generate reports using templates
+- Edit and delete existing records
+- Attach supporting documents and images
+- Generate reports using templates
 
 ---
 
@@ -48,3 +48,11 @@ cmake ..
 make
 
 ./TitleTrackCpp
+
+Screenshots/UI
+
+TitleTrack’s desktop interface makes it easy to view, edit, and manage abstract reports. Below is a preview of the main application window, showing the list of saved abstracts and access to detail dialogs.
+
+<p align="center">
+  <img src="docs/screenshot.png" alt="TitleTrack Screenshot" width="700">
+</p>
