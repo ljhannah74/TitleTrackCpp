@@ -54,4 +54,4 @@ make
 
 TitleTrack’s desktop interface makes it easy to view, edit, and manage abstract reports. Below is a preview of the main application window, showing the list of saved abstracts and access to detail dialogs.
 
-![TitleTrack Screenshot](docs/screenshot.png)
+![TitleTrack Screenshot](docs/TitleTrack_MainScreen.png)
