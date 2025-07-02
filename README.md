@@ -48,11 +48,10 @@ cmake ..
 make
 
 ./TitleTrackCpp
+```
 
-Screenshots/UI
+## Screenshots/UI
 
 TitleTrack’s desktop interface makes it easy to view, edit, and manage abstract reports. Below is a preview of the main application window, showing the list of saved abstracts and access to detail dialogs.
 
-<p align="center">
-  <img src="docs/screenshot.png" alt="TitleTrack Screenshot" width="700">
-</p>
+![TitleTrack Screenshot](docs/screenshot.png)
